@@ -24,6 +24,7 @@ public class TestaListagem {
 			System.out.println(descricao);
 		}
 		
+		stm.close();
 		connection.close();
 
 	}

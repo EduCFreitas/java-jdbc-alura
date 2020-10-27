@@ -19,6 +19,9 @@ public class TestaInsercao {
 			Integer id = rst.getInt(1);
 			System.out.println("O id criado foi: " + id);
 		}
+		
+		stm.close();
+		connection.close();
 
 	}
 
