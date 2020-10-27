@@ -11,11 +11,24 @@ public class TestaInsercaoComParametro {
 		Connection connection = factory.recuperarConexao();
 		connection.setAutoCommit(false); //Tira a responsabilidade do JDBC de fazer os commits na tabela
 		
-		PreparedStatement stm = connection.prepareStatement("INSERT INTO PRODUTO (nome, descricao) VALUES (?, ?)"
-				, Statement.RETURN_GENERATED_KEYS);
+		try {
+			PreparedStatement stm = connection.prepareStatement("INSERT INTO PRODUTO (nome, descricao) VALUES (?, ?)"
+					, Statement.RETURN_GENERATED_KEYS);
+			
+			adicionarVariavel("SmartTV", "45 polegadas", stm);
+			adicionarVariavel("Rádio", "Rádio de bateria", stm);
+			
+			connection.commit(); //Realiza o commit quando autoCommit é falso
+			
+			stm.close();
+			connection.close();
+		}catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("ROLLBACK EXECUTADO");
+			connection.rollback();
+		}
 		
-		adicionarVariavel("SmartTV", "45 polegadas", stm);
-		adicionarVariavel("Rádio", "Rádio de bateria", stm);
+		
 
 	}
 
@@ -23,9 +36,9 @@ public class TestaInsercaoComParametro {
 		stm.setString(1, nome);
 		stm.setString(2, descricao);
 		
-//		if(nome.equals("Rádio")) {
-//			throw new RuntimeException("Não foi possível adicionar o produto");
-//		}
+		if(nome.equals("Rádio")) {
+			throw new RuntimeException("Não foi possível adicionar o produto");
+		}
 		
 		stm.execute();
 		
