@@ -30,4 +30,9 @@ public class Categoria {
 		produtos.add(produto);
 	}
 	
+	@Override
+	public String toString() {
+		return this.nome;
+	}
+	
 }
