@@ -1,3 +1,5 @@
+package br.com.alura.jdbc;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,6 +29,7 @@ public class TestaInsercaoComParametro {
 		}
 	}
 
+	
 	private static void adicionarVariavel(String nome, String descricao, PreparedStatement stm) throws SQLException {
 		stm.setString(1, nome);
 		stm.setString(2, descricao);
